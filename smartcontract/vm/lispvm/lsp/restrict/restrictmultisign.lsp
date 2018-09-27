@@ -1,0 +1,41 @@
+(defun
+    RestrictMultiSign ()
+    (if (and (hasCurPrevOutParam "restrictmultisign.threshold") (hasCurPrevOutParam "restrictmultisign.addrs"))
+        (progn
+            (setq addrs (getCurPrevOutParamList "restrictmultisign.addrs"))
+            (setq threshold (getCurPrevOutParam "restrictmultisign.threshold"))
+            (update threshold (Int threshold))
+            
+            (setq pks 0)
+            (setq sigs 0)
+            (for addr addrs                                 
+                (if (hasPKByAddr addr)
+                    (progn
+                        (setq pk (getPKByAddr addr))
+                        (setq sig (getSig pk))
+                        (if (not pks)
+                            (update pks (list pk))
+                            (update pks (cons pk pks))
+                        )
+                        (if (not sigs)
+                            (update sigs (list sig))
+                            (update sigs (cons sig sigs))
+                        )
+                    )
+                )                               
+            )
+            (setq data (getCurUnitHashToSign))
+            (setq ret (verifyMultiSign pks data sigs threshold))
+            (if (not ret)
+                    (return-from RestrictMultiSign 0)
+            )
+        )
+        (return-from RestrictMultiSign 0)
+    )
+    (return-from RestrictMultiSign 1)
+)
+
+(setq res (RestrictMultiSign))
+
+(print "Result of Contract[RestrictMultiSign]: ")
+(println res)
