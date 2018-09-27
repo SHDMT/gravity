@@ -415,7 +415,7 @@ func FakeUserKey() (*AddressEntry, error) {
 	}
 	addr := hash.Sum256(pkBody)
 
-	var pkBytes  = []byte{0}
+	var pkBytes = []byte{0}
 	pkBytes = append(pkBytes, pkBody...)
 
 	privKeyBytes, err := privateKey.MarshalP()

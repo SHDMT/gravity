@@ -155,6 +155,7 @@ func dbHasAsset(dbTx database.Tx, key []byte) bool {
 	assetBucket := dbTx.Data().Bucket(dbnamespace.AssetBucket)
 	return assetBucket.KeyExists(key)
 }
+
 //CreateSmartContractBucket  is the bucket associated with creating smart contracts
 func CreateSmartContractBucket(db database.Db) error {
 	err := db.Update(func(tx database.Tx) error {

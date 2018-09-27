@@ -15,17 +15,16 @@
 package lispvm
 
 import (
-	"testing"
-	"fmt"
-	"github.com/SHDMT/gravity/platform/consensus/structure"
-	"github.com/SHDMT/gravity/platform/smartcontract/vm"
 	"encoding/base64"
 	"encoding/hex"
+	"fmt"
 	"github.com/SHDMT/gravity/platform/consensus/genesis"
+	"github.com/SHDMT/gravity/platform/consensus/structure"
+	"github.com/SHDMT/gravity/platform/smartcontract/vm"
+	"testing"
 )
 
-var addition =
-`
+var addition = `
 (defun
     Addition ()
     (setq blc (calcBalance))
@@ -72,8 +71,7 @@ var addition =
 (println res)
 `
 
-var cosign =
-`
+var cosign = `
 (defun
     Cosign ()
 
@@ -133,12 +131,12 @@ var cosign =
 (println res)
 `
 
-var simpleContract =
-`
+var simpleContract = `
 (print "simple Contract:OK")
 (setq x 1)
 `
-func TestLispToBytes(t *testing.T){
+
+func TestLispToBytes(t *testing.T) {
 
 	contract1 := structure.NewContract()
 
@@ -163,7 +161,6 @@ func TestLispToBytes(t *testing.T){
 	t.Logf("cosign: %x\n", contract2.Serialize())
 	t.Logf("cosign addr: %x\n", contract2.CalcAddress())
 
-
 	contract3 := structure.NewContract()
 
 	contract3.Name = "SimpleContract"
@@ -178,9 +175,9 @@ func TestLispToBytes(t *testing.T){
 
 }
 
-func TestEncodeDecode(t *testing.T){
+func TestEncodeDecode(t *testing.T) {
 	base64Str := "k4SzlT8MBVEqDHf0XJpSHQFVSByJUS9gFAoNcFApr34="
-	bytes,_ := base64.StdEncoding.DecodeString(base64Str)
+	bytes, _ := base64.StdEncoding.DecodeString(base64Str)
 
 	t.Logf("hex : %x \n", bytes)
 

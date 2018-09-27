@@ -15,15 +15,15 @@
 package lispvm
 
 import (
-	"testing"
 	"encoding/hex"
+	"testing"
 
-	"github.com/SHDMT/gravity/platform/consensus/structure"
 	"github.com/SHDMT/gravity/infrastructure/crypto/hash"
+	"github.com/SHDMT/gravity/platform/consensus/structure"
 	"github.com/SHDMT/gravity/platform/smartcontract/vm"
 )
 
-func Test_cap(t *testing.T){
+func Test_cap(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -46,10 +46,9 @@ func Test_cap(t *testing.T){
 	}
 }
 
-
-func Test_isDenominations(t *testing.T){
+func Test_isDenominations(t *testing.T) {
 	//Run successfully
-	lvm := NewLispVM(vm.Context{},  vm.Config{Mode: vm.VMModeContract})
+	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
 
 	_, err := lvm.vm.Eval([]byte(`
@@ -69,7 +68,7 @@ func Test_isDenominations(t *testing.T){
 		t.Error("isDenominations error:", err1)
 	}
 	//Simulate FixedDenominations to false
-	lvm.context.AssetMsg.FixedDenominations=false
+	lvm.context.AssetMsg.FixedDenominations = false
 
 	_, err2 := lvm.vm.Eval([]byte(`
 		(println (isDenominations))
@@ -81,7 +80,7 @@ func Test_isDenominations(t *testing.T){
 
 }
 
-func Test_getDenominationCount(t *testing.T){
+func Test_getDenominationCount(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -103,7 +102,7 @@ func Test_getDenominationCount(t *testing.T){
 		t.Error("getDenominationCount error:", err1)
 	}
 }
-func Test_getDenomination(t *testing.T){
+func Test_getDenomination(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -142,7 +141,6 @@ func Test_getDenomination(t *testing.T){
 		t.Error("getDenomination error:", err2)
 	}
 
-
 }
 func Test_getAssetContractCount(t *testing.T) {
 	//Run successfully
@@ -166,7 +164,7 @@ func Test_getAssetContractCount(t *testing.T) {
 		t.Error("getAssetContractCount error:", err1)
 	}
 }
-func Test_getAssetContract(t *testing.T){
+func Test_getAssetContract(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -206,7 +204,7 @@ func Test_getAssetContract(t *testing.T){
 	}
 }
 
-func Test_getAllocationsCount(t *testing.T){
+func Test_getAllocationsCount(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -230,7 +228,7 @@ func Test_getAllocationsCount(t *testing.T){
 
 }
 
-func Test_getAllocationsAddr(t *testing.T){
+func Test_getAllocationsAddr(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -270,7 +268,7 @@ func Test_getAllocationsAddr(t *testing.T){
 	}
 
 }
-func Test_getAllocationsAmount(t *testing.T){
+func Test_getAllocationsAmount(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -319,7 +317,7 @@ func Test_getAllocationsAmount(t *testing.T){
 	}
 
 }
-func Test_getAssetExtends(t *testing.T){
+func Test_getAssetExtends(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -342,7 +340,7 @@ func Test_getAssetExtends(t *testing.T){
 	}
 
 }
-func Test_getPublisherAddr(t *testing.T){
+func Test_getPublisherAddr(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -364,7 +362,7 @@ func Test_getPublisherAddr(t *testing.T){
 		t.Error("getPublisherAddr error:", err1)
 	}
 }
-func Test_getPublisherUnitMCI(t *testing.T){
+func Test_getPublisherUnitMCI(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -386,7 +384,7 @@ func Test_getPublisherUnitMCI(t *testing.T){
 		t.Error("getPublisherUnitMCI error:", err1)
 	}
 }
-func Test_getContractParamCount(t *testing.T){
+func Test_getContractParamCount(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -425,7 +423,7 @@ func Test_getContractParamCount(t *testing.T){
 		t.Error("getContractParamCount error:", err2)
 	}
 }
-func Test_getCurContractDefParamCount(t *testing.T){
+func Test_getCurContractDefParamCount(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -448,7 +446,7 @@ func Test_getCurContractDefParamCount(t *testing.T){
 	}
 
 }
-func Test_getCurContractDefParamName(t *testing.T)  {
+func Test_getCurContractDefParamName(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -487,7 +485,7 @@ func Test_getCurContractDefParamName(t *testing.T)  {
 		t.Error("getCurContractDefParamName error:", err2)
 	}
 }
-func Test_getCurContractDefParam(t *testing.T)  {
+func Test_getCurContractDefParam(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -535,7 +533,7 @@ func Test_getCurContractDefParam(t *testing.T)  {
 		t.Error("getCurContractDefParam error:", err3)
 	}
 }
-func Test_getContractParamName(t *testing.T)  {
+func Test_getContractParamName(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -597,7 +595,7 @@ func Test_getContractParamName(t *testing.T)  {
 		t.Error("getContractParamName error:", err3)
 	}
 }
-func Test_getContractParamByIndex(t *testing.T)  {
+func Test_getContractParamByIndex(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -660,7 +658,7 @@ func Test_getContractParamByIndex(t *testing.T)  {
 	}
 
 }
-func Test_getContractParam(t *testing.T)  {
+func Test_getContractParam(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -733,8 +731,7 @@ func Test_getContractParam(t *testing.T)  {
 	}
 }
 
-
-func Test_isExistAtGlobalParam(t *testing.T)  {
+func Test_isExistAtGlobalParam(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -791,7 +788,7 @@ func Test_isExistAtGlobalParam(t *testing.T)  {
 		t.Error("isExistAtGlobalParam error:", err4)
 	}
 }
-func Test_isExistAtOutputParam(t *testing.T)  {
+func Test_isExistAtOutputParam(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -849,7 +846,7 @@ func Test_isExistAtOutputParam(t *testing.T)  {
 	}
 
 }
-func Test_isExistAtInputParam(t *testing.T)  {
+func Test_isExistAtInputParam(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -906,7 +903,7 @@ func Test_isExistAtInputParam(t *testing.T)  {
 		t.Error("isExistAtInputParam error:", err4)
 	}
 }
-func Test_CalcOutputAmount(t *testing.T)  {
+func Test_CalcOutputAmount(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -929,7 +926,7 @@ func Test_CalcOutputAmount(t *testing.T)  {
 	}
 
 }
-func Test_CalcInputAmount(t *testing.T)  {
+func Test_CalcInputAmount(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -951,7 +948,7 @@ func Test_CalcInputAmount(t *testing.T)  {
 		t.Error("calcInputAmount error:", err1)
 	}
 }
-func Test_CalcBalance(t *testing.T)  {
+func Test_CalcBalance(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -974,7 +971,7 @@ func Test_CalcBalance(t *testing.T)  {
 	}
 }
 
-func Test_getCurContractDefParamList(t *testing.T)  {
+func Test_getCurContractDefParamList(t *testing.T) {
 	//Run successfully
 	lvm := NewLispVM(vm.Context{}, vm.Config{Mode: vm.VMModeContract})
 	setIssueLvm(lvm)
@@ -1027,7 +1024,7 @@ func Test_getCurContractDefParamList(t *testing.T)  {
 		t.Error("getCurContractDefParamList error:", err4)
 	}
 	//The data of the obtained value is too long
-	lvm.context.ContractDef.ParamsValue[0]=[]byte("north")
+	lvm.context.ContractDef.ParamsValue[0] = []byte("north")
 	_, err5 := lvm.vm.Eval([]byte(`
 		(define key "north")
 		(define x (getCurContractDefParamList key))
@@ -1039,24 +1036,7 @@ func Test_getCurContractDefParamList(t *testing.T)  {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-func setIssueLvm(lvm *LispVM){
+func setIssueLvm(lvm *LispVM) {
 
 	alloAddr := make([]hash.HashType, 4)
 	alloAmount := make([]int64, 4)
@@ -1071,87 +1051,80 @@ func setIssueLvm(lvm *LispVM){
 	paraKey[1] = "south"
 	paraKey[2] = "west"
 	paraKey[3] = "east"
-	paraValue1[0]=append(paraValue1[0],10)
-	paraValue1[0]=append(paraValue1[0],[]byte("abcdefghij")...)
-	paraValue1[1]=[]byte("south")
-	paraValue1[2]=[]byte("west")
-	paraValue1[3]=[]byte("east")
+	paraValue1[0] = append(paraValue1[0], 10)
+	paraValue1[0] = append(paraValue1[0], []byte("abcdefghij")...)
+	paraValue1[1] = []byte("south")
+	paraValue1[2] = []byte("west")
+	paraValue1[3] = []byte("east")
 	conDef[0] = &structure.ContractDef{
-		Address:		hash.Sum256(defaultBytes),
-		ParamsKey:		paraKey,
-		ParamsValue:	paraValue1,
+		Address:     hash.Sum256(defaultBytes),
+		ParamsKey:   paraKey,
+		ParamsValue: paraValue1,
 	}
 	invokeMsg := make([]structure.Message, 4)
-	for i := 0; i < len(alloAddr); i ++ {
+	for i := 0; i < len(alloAddr); i++ {
 
 		res[i] = 24
 		paraValue[i] = hash.Sum256(defaultBytes)
 
-		contractinput:=make([]*structure.ContractInput,1)
-		contractinput[0]=&structure.ContractInput{
-			InputParamsKey:paraKey,
-			InputParamsValue:paraValue,
-			SourceOutput:uint32(1),
+		contractinput := make([]*structure.ContractInput, 1)
+		contractinput[0] = &structure.ContractInput{
+			InputParamsKey:   paraKey,
+			InputParamsValue: paraValue,
+			SourceOutput:     uint32(1),
 		}
-		contractouput:=make([]*structure.ContractOutput,2)
-		contractouput[0]=&structure.ContractOutput{
-			Amount:uint64(1),
-			OutputParamsKey:paraKey,
-			OutputParamsValue:paraValue,
+		contractouput := make([]*structure.ContractOutput, 2)
+		contractouput[0] = &structure.ContractOutput{
+			Amount:            uint64(1),
+			OutputParamsKey:   paraKey,
+			OutputParamsValue: paraValue,
 		}
-		contractouput[1]=&structure.ContractOutput{
-			Amount:uint64(2),
-			OutputParamsKey:paraKey,
-			OutputParamsValue:paraValue,
+		contractouput[1] = &structure.ContractOutput{
+			Amount:            uint64(2),
+			OutputParamsKey:   paraKey,
+			OutputParamsValue: paraValue,
 		}
 		invokeMsg[i] = &structure.InvokeMessage{
-			ContractAddr: 	hash.Sum256(defaultBytes),
-			GlobalParamKey:paraKey,
-			GlobalParamValue:paraValue,
-			Outputs:contractouput,
-			Inputs:contractinput,
+			ContractAddr:     hash.Sum256(defaultBytes),
+			GlobalParamKey:   paraKey,
+			GlobalParamValue: paraValue,
+			Outputs:          contractouput,
+			Inputs:           contractinput,
 		}
 	}
 
 	issueMsg := generateIssueMsg(&structure.MessageHeader{}, "IssueMessage", 21000000, true, res, conDef, alloAddr, alloAmount, hash.Sum256(defaultBytes), hash.Sum256(defaultBytes))
 
-
 	lvm.context = vm.Context{
-		TxUnit:			structure.Unit{
-			Messages: 	invokeMsg,
-
+		TxUnit: structure.Unit{
+			Messages: invokeMsg,
 		},
-		TxMsgIndex:		1,
-		FetchPrevOut:   GetContractOutput,
+		TxMsgIndex:   1,
+		FetchPrevOut: GetContractOutput,
 
 		AssetMsg:    *issueMsg,
 		ContractDef: conDef[0],
 
-
-
-
-
-		MCI:			0,
+		MCI: 0,
 	}
 }
 
-
-func generateIssueMsg(header *structure.MessageHeader,name string,  cap int64,
-	fixed bool,demo []uint32, contracts []*structure.ContractDef, alloAddr []hash.HashType,
-	alloAmount []int64, address hash.HashType, note []byte) *structure.IssueMessage{
+func generateIssueMsg(header *structure.MessageHeader, name string, cap int64,
+	fixed bool, demo []uint32, contracts []*structure.ContractDef, alloAddr []hash.HashType,
+	alloAmount []int64, address hash.HashType, note []byte) *structure.IssueMessage {
 	issueMsg := &structure.IssueMessage{
-		Header:					header,
-		Name:					name,
-		Cap:					cap,
-		FixedDenominations:		fixed,
-		Denominations:			demo,
-		Contracts:				contracts,
+		Header:             header,
+		Name:               name,
+		Cap:                cap,
+		FixedDenominations: fixed,
+		Denominations:      demo,
+		Contracts:          contracts,
 
-		AllocationAddr:			alloAddr,
-		AllocationAmount:		alloAmount,
+		AllocationAddr:   alloAddr,
+		AllocationAmount: alloAmount,
 
-		PublisherAddress:		address,
-		Note:					note,
+		PublisherAddress: address,
+		Note:             note,
 	}
 
 	return issueMsg
@@ -1167,9 +1140,9 @@ func GetContractOutput(input *structure.ContractInput) *structure.ContractOutput
 	if err != nil {
 		return nil
 	}
-	paraValue2:= make([][]byte, 2)
-	paraValue2[0]=append(paraValue2[0],10)
-	paraValue2[0]=append(paraValue2[0],[]byte("gravitygra")...)
+	paraValue2 := make([][]byte, 2)
+	paraValue2[0] = append(paraValue2[0], 10)
+	paraValue2[0] = append(paraValue2[0], []byte("gravitygra")...)
 	contractOutput.AddParam("addr", hash.Sum256([]byte(pubKByte)))
 	contractOutput.AddParam("gravity", paraValue2[0])
 

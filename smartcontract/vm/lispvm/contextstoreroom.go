@@ -23,14 +23,15 @@ import (
 )
 
 const (
-        authorIndexError="the author index is not int"
-        paramLenError="paramLen is too long"
-	    inputParamIntError="input param is not int"
-	    contentIntError="content is not int"
-	    contentStringError="content is not string"
-	    inputParamStringError="input paramKey is not string"
-	    inputParamError="input paramKey is empty"
+	authorIndexError      = "the author index is not int"
+	paramLenError         = "paramLen is too long"
+	inputParamIntError    = "input param is not int"
+	contentIntError       = "content is not int"
+	contentStringError    = "content is not string"
+	inputParamStringError = "input paramKey is not string"
+	inputParamError       = "input paramKey is empty"
 )
+
 //sigCount returns the number of signatures
 func (lispvm *LispVM) sigCount(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error) {
 	if len(t) != 0 {
@@ -38,7 +39,7 @@ func (lispvm *LispVM) sigCount(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error)
 	}
 
 	sigCount := int64(len(lispvm.context.TxUnit.Authors))
-	return lisp.Token{Kind:lisp.Int, Text:sigCount}, nil
+	return lisp.Token{Kind: lisp.Int, Text: sigCount}, nil
 }
 
 //getPK	returns public key
@@ -57,7 +58,7 @@ func (lispvm *LispVM) getPK(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error) {
 	}
 
 	pk := string(lispvm.context.TxUnit.Authors[x.Text.(int64)].Definition)
-	return lisp.Token{Kind:lisp.String, Text:pk}, nil
+	return lisp.Token{Kind: lisp.String, Text: pk}, nil
 }
 
 //getPKByAddr returns the public key based on the address
@@ -80,13 +81,13 @@ func (lispvm *LispVM) getPKByAddr(t []lisp.Token, p *lisp.Lisp) (lisp.Token, err
 
 	for _, author := range lispvm.context.TxUnit.Authors {
 
-		if bytes.Equal(author.Address, []byte(x.Text.(string))){
-			definition:=string(author.Definition)
-			return lisp.Token{Kind:lisp.String, Text:definition}, nil
+		if bytes.Equal(author.Address, []byte(x.Text.(string))) {
+			definition := string(author.Definition)
+			return lisp.Token{Kind: lisp.String, Text: definition}, nil
 		}
 	}
 
-	return  lisp.None, errors.New("getPKByAddr failed")
+	return lisp.None, errors.New("getPKByAddr failed")
 
 }
 
@@ -109,8 +110,8 @@ func (lispvm *LispVM) getSig(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error) {
 
 	for _, author := range lispvm.context.TxUnit.Authors {
 		if bytes.Equal(author.Definition, []byte(x.Text.(string))) {
-			authentifiers:=string(author.Authentifiers)
-			return lisp.Token{Kind:lisp.String, Text:authentifiers}, nil
+			authentifiers := string(author.Authentifiers)
+			return lisp.Token{Kind: lisp.String, Text: authentifiers}, nil
 		}
 	}
 
@@ -124,7 +125,7 @@ func (lispvm *LispVM) getCurUnitHash(t []lisp.Token, p *lisp.Lisp) (lisp.Token, 
 	}
 
 	CurUnitHash := string(lispvm.context.TxUnit.Hash())
-	return lisp.Token{Kind:lisp.String, Text:CurUnitHash}, nil
+	return lisp.Token{Kind: lisp.String, Text: CurUnitHash}, nil
 }
 
 //GetCurUnitHashToSig returns the hash used for signing according to Unit
@@ -134,7 +135,7 @@ func (lispvm *LispVM) getCurUnitHashToSign(t []lisp.Token, p *lisp.Lisp) (lisp.T
 	}
 
 	hashToSign := string(lispvm.context.TxUnit.GetHashToSign())
-	return lisp.Token{Kind:lisp.String, Text:hashToSign}, nil
+	return lisp.Token{Kind: lisp.String, Text: hashToSign}, nil
 }
 
 //getCurMsgHash returns the hash of the message
@@ -144,7 +145,7 @@ func (lispvm *LispVM) getCurMsgHash(t []lisp.Token, p *lisp.Lisp) (lisp.Token, e
 	}
 
 	CurMsgHash := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].PayloadHash())
-	return lisp.Token{Kind:lisp.String, Text:CurMsgHash}, nil
+	return lisp.Token{Kind: lisp.String, Text: CurMsgHash}, nil
 }
 
 //globalParamCount returns the number of public parameters
@@ -153,8 +154,8 @@ func (lispvm *LispVM) globalParamCount(t []lisp.Token, p *lisp.Lisp) (lisp.Token
 		return lisp.None, lisp.ErrParaNum
 	}
 
-	globalParamCount:= int64(len(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).GlobalParamKey))
-	return  lisp.Token{Kind:lisp.Int,Text:globalParamCount},nil
+	globalParamCount := int64(len(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).GlobalParamKey))
+	return lisp.Token{Kind: lisp.Int, Text: globalParamCount}, nil
 }
 
 //getGlobalParam returns public parameters
@@ -176,8 +177,9 @@ func (lispvm *LispVM) getGlobalParam(t []lisp.Token, p *lisp.Lisp) (lisp.Token, 
 
 	name := x.Text.(string)
 	globalParam := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).GetParam(name))
-	return lisp.Token{Kind:lisp.String, Text:globalParam}, nil
+	return lisp.Token{Kind: lisp.String, Text: globalParam}, nil
 }
+
 //getGlobalParam returns to the public parameter list
 func (lispvm *LispVM) getGlobalParamList(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error) {
 	if len(t) != 1 {
@@ -198,20 +200,20 @@ func (lispvm *LispVM) getGlobalParamList(t []lisp.Token, p *lisp.Lisp) (lisp.Tok
 	name := x.Text.(string)
 	globalParam := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).GetParam(name))
 	var paramList []lisp.Token
-	paramlistLen:=len(globalParam)
-	startIdx:=0
-	for startIdx< paramlistLen {
-		paramLen:=int(globalParam[startIdx])
-		if paramLen >=paramlistLen-startIdx {
-			return 	lisp.None,errors.New(paramLenError)
+	paramlistLen := len(globalParam)
+	startIdx := 0
+	for startIdx < paramlistLen {
+		paramLen := int(globalParam[startIdx])
+		if paramLen >= paramlistLen-startIdx {
+			return lisp.None, errors.New(paramLenError)
 		}
-		paramV:=string(globalParam[startIdx+1:startIdx+paramLen+1])
-		params:=lisp.Token{Kind:lisp.String,Text:paramV}
-		paramList=append(paramList,params)
+		paramV := string(globalParam[startIdx+1 : startIdx+paramLen+1])
+		params := lisp.Token{Kind: lisp.String, Text: paramV}
+		paramList = append(paramList, params)
 
-		startIdx=startIdx+paramLen+1
+		startIdx = startIdx + paramLen + 1
 	}
-	return lisp.Token{Kind:lisp.List, Text:paramList}, nil
+	return lisp.Token{Kind: lisp.List, Text: paramList}, nil
 }
 
 //inputCount returns the number of Inputs
@@ -219,8 +221,8 @@ func (lispvm *LispVM) inputCount(t []lisp.Token, p *lisp.Lisp) (lisp.Token, erro
 	if len(t) != 0 {
 		return lisp.None, lisp.ErrParaNum
 	}
-	inputcount:= int64(len(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs))
-	return  lisp.Token{Kind:lisp.Int,Text:inputcount},nil
+	inputcount := int64(len(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs))
+	return lisp.Token{Kind: lisp.Int, Text: inputcount}, nil
 }
 
 //getInputUnit returns unit hash according to Input
@@ -239,7 +241,7 @@ func (lispvm *LispVM) getInputUnit(t []lisp.Token, p *lisp.Lisp) (lisp.Token, er
 
 	index := x.Text.(int64)
 	getInputUnit := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[index].SourceUnit)
-	return lisp.Token{Kind:lisp.String, Text:getInputUnit}, nil
+	return lisp.Token{Kind: lisp.String, Text: getInputUnit}, nil
 }
 
 //getInputMsg returns Msg index according to Input
@@ -259,7 +261,7 @@ func (lispvm *LispVM) getInputMsg(t []lisp.Token, p *lisp.Lisp) (lisp.Token, err
 
 	msgIndex := int64(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[x.Text.(int64)].SourceMessage)
 
-	return lisp.Token{Kind:lisp.Int, Text:msgIndex}, nil
+	return lisp.Token{Kind: lisp.Int, Text: msgIndex}, nil
 }
 
 //getInputMsg returns the parameter value according to Input
@@ -285,14 +287,15 @@ func (lispvm *LispVM) getInputParam(t []lisp.Token, p *lisp.Lisp) (lisp.Token, e
 	if y.Kind != lisp.String {
 		return lisp.None, errors.New("input name is not int")
 	}
-	if len(y.Text.(string))==0{
+	if len(y.Text.(string)) == 0 {
 		return lisp.None, errors.New("input name is empty")
 	}
 
 	inputParam := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[x.Text.(int64)].GetParam(y.Text.(string)))
 
-	return lisp.Token{Kind:lisp.String, Text:inputParam}, nil
+	return lisp.Token{Kind: lisp.String, Text: inputParam}, nil
 }
+
 //getInputMsg returns the parameter list according to Input
 func (lispvm *LispVM) getInputParamList(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error) {
 	if len(t) != 2 {
@@ -316,26 +319,26 @@ func (lispvm *LispVM) getInputParamList(t []lisp.Token, p *lisp.Lisp) (lisp.Toke
 	if y.Kind != lisp.String {
 		return lisp.None, errors.New("input name is not int")
 	}
-	if len(y.Text.(string))==0{
+	if len(y.Text.(string)) == 0 {
 		return lisp.None, errors.New("input name is empty")
 	}
 
 	inputParam := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[x.Text.(int64)].GetParam(y.Text.(string)))
 	var paramList []lisp.Token
-	paramlistLen:=len(inputParam)
-	startIdx:=0
-	for startIdx< paramlistLen {
-		paramLen:=int(inputParam[startIdx])
-		if paramLen >=paramlistLen-startIdx {
-			return 	lisp.None,errors.New(paramLenError)
+	paramlistLen := len(inputParam)
+	startIdx := 0
+	for startIdx < paramlistLen {
+		paramLen := int(inputParam[startIdx])
+		if paramLen >= paramlistLen-startIdx {
+			return lisp.None, errors.New(paramLenError)
 		}
-		paramV:=string(inputParam[startIdx+1:startIdx+paramLen+1])
-		params:=lisp.Token{Kind:lisp.String,Text:paramV}
-		paramList=append(paramList,params)
+		paramV := string(inputParam[startIdx+1 : startIdx+paramLen+1])
+		params := lisp.Token{Kind: lisp.String, Text: paramV}
+		paramList = append(paramList, params)
 
-		startIdx=startIdx+paramLen+1
+		startIdx = startIdx + paramLen + 1
 	}
-	return lisp.Token{Kind:lisp.List, Text:paramList}, nil
+	return lisp.Token{Kind: lisp.List, Text: paramList}, nil
 
 }
 
@@ -356,7 +359,7 @@ func (lispvm *LispVM) getInputPreOut(t []lisp.Token, p *lisp.Lisp) (lisp.Token, 
 
 	outputIndex := int64(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[x.Text.(int64)].SourceOutput)
 
-	return lisp.Token{Kind:lisp.Int, Text:outputIndex}, nil
+	return lisp.Token{Kind: lisp.Int, Text: outputIndex}, nil
 }
 
 //getPrevOutAmount returns the PrevOut amount based on Input
@@ -377,7 +380,7 @@ func (lispvm *LispVM) getPrevOutAmount(t []lisp.Token, p *lisp.Lisp) (lisp.Token
 	msg := lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage)
 	preOutAmount := int64(lispvm.context.FetchPrevOut(msg.Inputs[x.Text.(int64)]).Amount)
 
-	return lisp.Token{Kind:lisp.Int, Text:preOutAmount}, nil
+	return lisp.Token{Kind: lisp.Int, Text: preOutAmount}, nil
 }
 
 //getPrevOutParam returns the PrevOut parameter
@@ -410,7 +413,7 @@ func (lispvm *LispVM) getPrevOutParam(t []lisp.Token, p *lisp.Lisp) (lisp.Token,
 	input := lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[x.Text.(int64)]
 
 	preOutParam := string(lispvm.context.FetchPrevOut(input).GetParam(y.Text.(string)))
-	return lisp.Token{Kind:lisp.String, Text:preOutParam}, nil
+	return lisp.Token{Kind: lisp.String, Text: preOutParam}, nil
 }
 
 //getPrevOutParamList returns to the PrevOut parameter list
@@ -439,19 +442,19 @@ func (lispvm *LispVM) getPrevOutParamList(t []lisp.Token, p *lisp.Lisp) (lisp.To
 	input := lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[x.Text.(int64)]
 	preOutParam := string(lispvm.context.FetchPrevOut(input).GetParam(y.Text.(string)))
 	var preOutParamList []lisp.Token
-	paramlistLen:=len(preOutParam)
-	startIdx:=0
-	for startIdx< paramlistLen {
-		paramLen:=int(preOutParam[startIdx])
-		if paramLen >=paramlistLen-startIdx {
-			return 	lisp.None,errors.New(paramLenError)
+	paramlistLen := len(preOutParam)
+	startIdx := 0
+	for startIdx < paramlistLen {
+		paramLen := int(preOutParam[startIdx])
+		if paramLen >= paramlistLen-startIdx {
+			return lisp.None, errors.New(paramLenError)
 		}
-		paramV:=string(preOutParam[startIdx+1:startIdx+paramLen+1])
-		params:=lisp.Token{Kind:lisp.String,Text:paramV}
-		preOutParamList=append(preOutParamList,params)
-		startIdx=startIdx+paramLen+1
+		paramV := string(preOutParam[startIdx+1 : startIdx+paramLen+1])
+		params := lisp.Token{Kind: lisp.String, Text: paramV}
+		preOutParamList = append(preOutParamList, params)
+		startIdx = startIdx + paramLen + 1
 	}
-	return lisp.Token{Kind:lisp.List, Text:preOutParamList}, nil
+	return lisp.Token{Kind: lisp.List, Text: preOutParamList}, nil
 }
 
 //getPreOutExtends returns to PrevOut Additional Information
@@ -473,7 +476,7 @@ func (lispvm *LispVM) getPreOutExtends(t []lisp.Token, p *lisp.Lisp) (lisp.Token
 	input := lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[x.Text.(int64)]
 	outputExtends := string(lispvm.context.FetchPrevOut(input).Extends)
 
-	return lisp.Token{Kind:lisp.String, Text:outputExtends}, nil
+	return lisp.Token{Kind: lisp.String, Text: outputExtends}, nil
 }
 
 //getOutputAmount returns to the Output amount
@@ -494,7 +497,7 @@ func (lispvm *LispVM) getOutputAmount(t []lisp.Token, p *lisp.Lisp) (lisp.Token,
 
 	amount := int64(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Outputs[x.Text.(int64)].Amount)
 
-	return lisp.Token{Kind:lisp.Int, Text:amount}, nil
+	return lisp.Token{Kind: lisp.Int, Text: amount}, nil
 }
 
 //getOutputParam  returns Output parameter
@@ -527,8 +530,9 @@ func (lispvm *LispVM) getOutputParam(t []lisp.Token, p *lisp.Lisp) (lisp.Token, 
 
 	outputParam := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Outputs[x.Text.(int64)].GetParam(y.Text.(string)))
 
-	return lisp.Token{Kind:lisp.String, Text:outputParam}, nil
+	return lisp.Token{Kind: lisp.String, Text: outputParam}, nil
 }
+
 //getOutputParam returns to the Output parameter list
 func (lispvm *LispVM) getOutputParamList(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error) {
 	if len(t) != 2 {
@@ -560,20 +564,20 @@ func (lispvm *LispVM) getOutputParamList(t []lisp.Token, p *lisp.Lisp) (lisp.Tok
 	outputParam := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Outputs[x.Text.(int64)].GetParam(y.Text.(string)))
 
 	var paramList []lisp.Token
-	paramlistLen:=len(outputParam)
-	startIdx:=0
-	for startIdx< paramlistLen {
-		paramLen:=int(outputParam[startIdx])
-		if paramLen >=paramlistLen-startIdx {
-			return 	lisp.None,errors.New(paramLenError)
+	paramlistLen := len(outputParam)
+	startIdx := 0
+	for startIdx < paramlistLen {
+		paramLen := int(outputParam[startIdx])
+		if paramLen >= paramlistLen-startIdx {
+			return lisp.None, errors.New(paramLenError)
 		}
-		paramV:=string(outputParam[startIdx+1:startIdx+paramLen+1])
-		params:=lisp.Token{Kind:lisp.String,Text:paramV}
-		paramList=append(paramList,params)
+		paramV := string(outputParam[startIdx+1 : startIdx+paramLen+1])
+		params := lisp.Token{Kind: lisp.String, Text: paramV}
+		paramList = append(paramList, params)
 
-		startIdx=startIdx+paramLen+1
+		startIdx = startIdx + paramLen + 1
 	}
-	return lisp.Token{Kind:lisp.List, Text:paramList}, nil
+	return lisp.Token{Kind: lisp.List, Text: paramList}, nil
 }
 
 //getOutputExtends returns to Output Additional Information
@@ -593,7 +597,7 @@ func (lispvm *LispVM) getOutputExtends(t []lisp.Token, p *lisp.Lisp) (lisp.Token
 
 	outputExtend := string(lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Outputs[x.Text.(int64)].Extends)
 
-	return lisp.Token{Kind:lisp.String, Text:outputExtend}, nil
+	return lisp.Token{Kind: lisp.String, Text: outputExtend}, nil
 }
 
 //getCurMCI returns to current MCI
@@ -601,8 +605,8 @@ func (lispvm *LispVM) getCurrentMCI(t []lisp.Token, p *lisp.Lisp) (lisp.Token, e
 	if len(t) != 0 {
 		return lisp.None, lisp.ErrParaNum
 	}
-	mci:=int64(lispvm.context.MCI)
-	return lisp.Token{Kind:lisp.Int,Text:mci},nil
+	mci := int64(lispvm.context.MCI)
+	return lisp.Token{Kind: lisp.Int, Text: mci}, nil
 
 }
 
@@ -628,9 +632,8 @@ func (lispvm *LispVM) hasPrevOutParam(t []lisp.Token, p *lisp.Lisp) (lisp.Token,
 		return lisp.None, errors.New("param is not string")
 	}
 
-
-	if len(y.Text.(string)) == 0{
-		return lisp.None,errors.New("param is empty")
+	if len(y.Text.(string)) == 0 {
+		return lisp.None, errors.New("param is empty")
 
 	}
 
@@ -685,8 +688,8 @@ func (lispvm *LispVM) getAuthorSig(t []lisp.Token, p *lisp.Lisp) (lisp.Token, er
 	if x.Kind != lisp.Int {
 		return lisp.None, errors.New(authorIndexError)
 	}
-	sig:=string(lispvm.context.TxUnit.Authors[x.Text.(int64)].Authentifiers)
-	return lisp.Token{Kind:lisp.String,Text:sig}, nil
+	sig := string(lispvm.context.TxUnit.Authors[x.Text.(int64)].Authentifiers)
+	return lisp.Token{Kind: lisp.String, Text: sig}, nil
 }
 
 //getAuthorAddr returns the Author address
@@ -703,8 +706,8 @@ func (lispvm *LispVM) getAuthorAddr(t []lisp.Token, p *lisp.Lisp) (lisp.Token, e
 	if x.Kind != lisp.Int {
 		return lisp.None, errors.New(authorIndexError)
 	}
-	addr:=string(lispvm.context.TxUnit.Authors[x.Text.(int64)].Address)
-	return lisp.Token{Kind:lisp.String,Text:addr}, nil
+	addr := string(lispvm.context.TxUnit.Authors[x.Text.(int64)].Address)
+	return lisp.Token{Kind: lisp.String, Text: addr}, nil
 }
 
 //hasInputParam is to determine whether the current inputParam exists
@@ -729,8 +732,8 @@ func (lispvm *LispVM) hasInputParam(t []lisp.Token, p *lisp.Lisp) (lisp.Token, e
 	if y.Kind != lisp.String {
 		return lisp.None, errors.New("param is not string")
 	}
-	if len(y.Text.(string)) == 0{
-		return lisp.None,errors.New("param is empty")
+	if len(y.Text.(string)) == 0 {
+		return lisp.None, errors.New("param is empty")
 	}
 	input := lispvm.context.TxUnit.Messages[lispvm.context.TxMsgIndex].(*structure.InvokeMessage).Inputs[x.Text.(int64)]
 	inputparam := input.FindParam(y.Text.(string))
@@ -754,11 +757,11 @@ func (lispvm *LispVM) hasCurPrevOutParam(t []lisp.Token, p *lisp.Lisp) (lisp.Tok
 	if x.Kind != lisp.String {
 		return lisp.None, errors.New(inputParamStringError)
 	}
-	if len(x.Text.(string))==0 {
+	if len(x.Text.(string)) == 0 {
 		return lisp.None, errors.New(inputParamError)
 	}
-	for _, v := range lispvm.context.PrevOut.OutputParamsKey{
-		if v==x.Text.(string){
+	for _, v := range lispvm.context.PrevOut.OutputParamsKey {
+		if v == x.Text.(string) {
 			return lisp.True, nil
 		}
 	}
@@ -777,17 +780,18 @@ func (lispvm *LispVM) getCurPrevOutParam(t []lisp.Token, p *lisp.Lisp) (lisp.Tok
 	if x.Kind != lisp.String {
 		return lisp.None, errors.New(inputParamStringError)
 	}
-	if len(x.Text.(string))==0 {
+	if len(x.Text.(string)) == 0 {
 		return lisp.None, errors.New(inputParamError)
 	}
-	for i, v := range lispvm.context.PrevOut.OutputParamsKey{
-		if v==x.Text.(string){
-			paramsvalue:=string(lispvm.context.PrevOut.OutputParamsValue[i])
-			return lisp.Token{Kind:lisp.String,Text:paramsvalue}, nil
+	for i, v := range lispvm.context.PrevOut.OutputParamsKey {
+		if v == x.Text.(string) {
+			paramsvalue := string(lispvm.context.PrevOut.OutputParamsValue[i])
+			return lisp.Token{Kind: lisp.String, Text: paramsvalue}, nil
 		}
 	}
-	return lisp.None,errors.New("getCurPrevOutParam failed ")
+	return lisp.None, errors.New("getCurPrevOutParam failed ")
 }
+
 //getCurPrevOutParamList returns the list of paramValues in the current PrevOut
 func (lispvm *LispVM) getCurPrevOutParamList(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error) {
 	if len(t) != 1 {
@@ -800,38 +804,39 @@ func (lispvm *LispVM) getCurPrevOutParamList(t []lisp.Token, p *lisp.Lisp) (lisp
 	if x.Kind != lisp.String {
 		return lisp.None, errors.New(inputParamStringError)
 	}
-	if len(x.Text.(string))==0 {
+	if len(x.Text.(string)) == 0 {
 		return lisp.None, errors.New(inputParamError)
 	}
-	for i, v := range lispvm.context.PrevOut.OutputParamsKey{
-		if v==x.Text.(string){
-			paramsvalue:=string(lispvm.context.PrevOut.OutputParamsValue[i])
+	for i, v := range lispvm.context.PrevOut.OutputParamsKey {
+		if v == x.Text.(string) {
+			paramsvalue := string(lispvm.context.PrevOut.OutputParamsValue[i])
 			var paramList []lisp.Token
-			paramlistLen:=len(paramsvalue)
-			startIdx:=0
-			for startIdx< paramlistLen {
-				paramLen:=int(paramsvalue[startIdx])
-				if paramLen >=paramlistLen-startIdx {
-					return 	lisp.None,errors.New(paramLenError)
+			paramlistLen := len(paramsvalue)
+			startIdx := 0
+			for startIdx < paramlistLen {
+				paramLen := int(paramsvalue[startIdx])
+				if paramLen >= paramlistLen-startIdx {
+					return lisp.None, errors.New(paramLenError)
 				}
-				paramV:=string(paramsvalue[startIdx+1:startIdx+paramLen+1])
-				params:=lisp.Token{Kind:lisp.String,Text:paramV}
-				paramList=append(paramList,params)
+				paramV := string(paramsvalue[startIdx+1 : startIdx+paramLen+1])
+				params := lisp.Token{Kind: lisp.String, Text: paramV}
+				paramList = append(paramList, params)
 
-				startIdx=startIdx+paramLen+1
+				startIdx = startIdx + paramLen + 1
 			}
-			return lisp.Token{Kind:lisp.List, Text:paramList}, nil
+			return lisp.Token{Kind: lisp.List, Text: paramList}, nil
 		}
 	}
-	return lisp.None,errors.New("getCurPrevOutParam failed ")
+	return lisp.None, errors.New("getCurPrevOutParam failed ")
 }
+
 //getCurPrevOutAmount returns the amount in current PrevOut
 func (lispvm *LispVM) getCurPrevOutAmount(t []lisp.Token, p *lisp.Lisp) (lisp.Token, error) {
 	if len(t) != 0 {
 		return lisp.None, lisp.ErrParaNum
 	}
-	amount:=int64(lispvm.context.PrevOut.UtxoHeader.Amount)
-	return lisp.Token{Kind:lisp.Int,Text:amount},nil
+	amount := int64(lispvm.context.PrevOut.UtxoHeader.Amount)
+	return lisp.Token{Kind: lisp.Int, Text: amount}, nil
 }
 
 //getCurPrevOutExtends returns to Extends in current PrevOnt
@@ -840,7 +845,7 @@ func (lispvm *LispVM) getCurPrevOutExtends(t []lisp.Token, p *lisp.Lisp) (lisp.T
 		return lisp.None, lisp.ErrParaNum
 	}
 	extends := string(lispvm.context.PrevOut.Extends)
-	return lisp.Token{Kind:lisp.String, Text:extends}, nil
+	return lisp.Token{Kind: lisp.String, Text: extends}, nil
 }
 
 //getCurInputParam returns the ParamValue in the current Input
@@ -855,16 +860,16 @@ func (lispvm *LispVM) getCurInputParam(t []lisp.Token, p *lisp.Lisp) (lisp.Token
 	if x.Kind != lisp.String {
 		return lisp.None, errors.New(inputParamStringError)
 	}
-	if len(x.Text.(string))==0 {
+	if len(x.Text.(string)) == 0 {
 		return lisp.None, errors.New(inputParamError)
 	}
-	for i, v := range lispvm.context.Input.InputParamsKey{
-		if v==x.Text.(string){
-			paramsvale:=string(lispvm.context.Input.InputParamsValue[i])
-			return lisp.Token{Kind:lisp.String,Text:paramsvale}, nil
+	for i, v := range lispvm.context.Input.InputParamsKey {
+		if v == x.Text.(string) {
+			paramsvale := string(lispvm.context.Input.InputParamsValue[i])
+			return lisp.Token{Kind: lisp.String, Text: paramsvale}, nil
 		}
 	}
-	return lisp.None,errors.New("getCurInputParam failed")
+	return lisp.None, errors.New("getCurInputParam failed")
 }
 
 //hasCurInputParam is to determine whether the current Input ParamValue exists
@@ -879,11 +884,11 @@ func (lispvm *LispVM) hasCurInputParam(t []lisp.Token, p *lisp.Lisp) (lisp.Token
 	if x.Kind != lisp.String {
 		return lisp.None, errors.New(inputParamStringError)
 	}
-	if len(x.Text.(string))==0 {
+	if len(x.Text.(string)) == 0 {
 		return lisp.None, errors.New(inputParamError)
 	}
-	for _, v := range lispvm.context.Input.InputParamsKey{
-		if v==x.Text.(string){
+	for _, v := range lispvm.context.Input.InputParamsKey {
+		if v == x.Text.(string) {
 			return lisp.True, nil
 		}
 	}
@@ -896,7 +901,7 @@ func (lispvm *LispVM) getCurInputParamsCount(t []lisp.Token, p *lisp.Lisp) (lisp
 		return lisp.None, lisp.ErrParaNum
 	}
 	paraCount := int64(len(lispvm.context.Input.InputParamsKey))
-	return lisp.Token{Kind:lisp.Int, Text:paraCount}, nil
+	return lisp.Token{Kind: lisp.Int, Text: paraCount}, nil
 }
 
 //getCurInputUnit returns the sourceUnit of the current Input
@@ -905,7 +910,7 @@ func (lispvm *LispVM) getCurInputUnit(t []lisp.Token, p *lisp.Lisp) (lisp.Token,
 		return lisp.None, lisp.ErrParaNum
 	}
 	sUnit := string(lispvm.context.Input.SourceUnit)
-	return lisp.Token{Kind:lisp.String, Text:sUnit}, nil
+	return lisp.Token{Kind: lisp.String, Text: sUnit}, nil
 }
 
 //getCurInputMsg returns the Msg number of the current Input
@@ -914,7 +919,7 @@ func (lispvm *LispVM) getCurInputMsg(t []lisp.Token, p *lisp.Lisp) (lisp.Token, 
 		return lisp.None, lisp.ErrParaNum
 	}
 	sMsg := int64(lispvm.context.Input.SourceMessage)
-	return lisp.Token{Kind:lisp.Int, Text:sMsg}, nil
+	return lisp.Token{Kind: lisp.Int, Text: sMsg}, nil
 }
 
 //getCurInputOutput returns the current Input's Output number
@@ -923,5 +928,5 @@ func (lispvm *LispVM) getCurInputOutput(t []lisp.Token, p *lisp.Lisp) (lisp.Toke
 		return lisp.None, lisp.ErrParaNum
 	}
 	sOutput := int64(lispvm.context.Input.SourceOutput)
-	return lisp.Token{Kind:lisp.Int, Text:sOutput}, nil
+	return lisp.Token{Kind: lisp.Int, Text: sOutput}, nil
 }

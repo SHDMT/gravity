@@ -50,6 +50,7 @@ func NewSmartContractError(code uint32, des string, err error) *SmartContractErr
 		err:         err,
 	}
 }
+
 //IsNotFoundFormDBError  is that this error does not exist
 func IsNotFoundFormDBError(smartContractError *SmartContractError) bool {
 	return smartContractError.isErrorType(ErrNotFoundFormDB)
