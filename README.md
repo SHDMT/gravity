@@ -7,7 +7,7 @@ Gravity is committed to building an ecosystem of global trading, with the aim of
   
     1.  A Decentralized Consensus Model Based on DAG
     2.  New DAG-based Smart Contract
-    3.  High Efficient and Flexible Quantum-Resistant  Features 
+    3.  High Efficient and Flexible Quantum-Resistant Features 
     4.  Efficient and Secure Cross-chain Protocol
     
   OpenSource Plan
