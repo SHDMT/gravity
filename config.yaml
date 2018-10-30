@@ -44,6 +44,6 @@ BlackList: ['10.0.0.1', '::1','fe80::1','192.168.0.0/24','fd00::/16']
 
 NoDnsSeed: false  # if false, enable DNS seeding for peers
 
-LocalIp: '192.168.0.125'   # if disable NAT, LocalIP will be used to test in LAN
+LocalIp: '127.0.0.1'   # if disable NAT, LocalIP will be used to test in LAN
 #EnableNAT: true  # if true, will enable upnp
 MiningAddress: yWewOjcZWu8CEhP9GsM+vWZPG55/n7pzpwzqu0Ahdgk=
