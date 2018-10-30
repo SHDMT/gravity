@@ -1,0 +1,114 @@
+version: '3'
+services:
+  g1:
+    container_name: g1
+    image: shdmt/gravity
+    user: root
+    networks:
+      gravity:
+        ipv4_address: '172.28.1.111'
+    command:
+       - /bin/sh
+       - -c
+       - |
+         editconf.sh 172.28.1.111
+         cd /root/.gravity
+         unzip /root/zip/data1.zip
+         gravity 1>/root/gravity.log  2>&1
+  g2:
+    container_name: g2
+    image: shdmt/gravity
+    user: root
+    networks:
+      gravity:
+        ipv4_address: '172.28.1.112'
+    command:
+       - /bin/sh
+       - -c
+       - |
+         editconf.sh 172.28.1.112
+         cd /root/.gravity
+         unzip /root/zip/data2.zip
+         gravity 1>/root/gravity.log  2>&1
+  g3:
+    container_name: g3
+    image: shdmt/gravity
+    user: root
+    networks:
+      gravity:
+        ipv4_address: '172.28.1.113'
+    command:
+       - /bin/sh
+       - -c
+       - |
+         editconf.sh 172.28.1.113
+         cd /root/.gravity
+         unzip /root/zip/data3.zip
+         gravity 1>/root/gravity.log 2>&1
+  g4:
+    container_name: g4
+    image: shdmt/gravity
+    user: root
+    networks:
+      gravity:
+        ipv4_address: '172.28.1.114'
+    command:
+       - /bin/sh
+       - -c
+       - |
+         editconf.sh 172.28.1.114
+         cd /root/.gravity
+         unzip /root/zip/data4.zip
+         gravity 1>/root/gravity.log 2>&1
+  g5:
+    container_name: g5
+    image: shdmt/gravity
+    user: root
+    networks:
+      gravity:
+        ipv4_address: '172.28.1.115'
+    command:
+       - /bin/sh
+       - -c
+       - |
+         editconf.sh 172.28.1.115
+         cd /root/.gravity
+         unzip /root/zip/data5.zip
+         gravity 1>/root/gravity.log 2>&1
+  g6:
+    container_name: g6
+    image: shdmt/gravity
+    user: root
+    networks:
+      gravity:
+        ipv4_address: '172.28.1.116'
+    command:
+       - /bin/sh
+       - -c
+       - |
+         editconf.sh 172.28.1.116
+         cd /root/.gravity
+         unzip /root/zip/data6.zip
+         gravity 1>/root/gravity.log 2>&1
+  g7:
+    container_name: g7
+    image: shdmt/gravity
+    user: root
+    networks:
+      gravity:
+        ipv4_address: '172.28.1.117'
+    command:
+       - /bin/sh
+       - -c
+       - |
+         editconf.sh 172.28.1.117
+         cd /root/.gravity
+         unzip /root/zip/data7.zip
+         gravity 1>/root/gravity.log 2>&1
+networks:
+  gravity:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.1.0/24

@@ -1,0 +1,49 @@
+﻿# 参考hcashd.conf写该yaml文件
+HomeDir: 'gravity'
+DataDir: 'data'
+
+LogDir: 'logs'
+LogName: 'gravity.log'
+LogLevel: 0  # Debug
+#LogLevel: 1  # Info
+#LogLevel: 2  # Warn
+#LogLevel: 3  # Error
+#LogLevel: 4  # Fatal
+#LogLevel: 5  # Trace
+MaxLogSize: 100 # in MB
+
+NetType: 1  # MainNet
+#NetType: 2 #TestNet
+#NetType: 3 #SimNet
+
+EnableUpnp: false
+
+Peers: ['172.28.1.111:16611', '172.28.1.112:16611','172.28.1.113:16611',
+'172.28.1.114:16611','172.28.1.115:16611','172.28.1.116:16611',]
+MaxPeers: 10
+
+Listen:
+ - ':16611'         # empty: all interfaces on default port
+# - '0.0.0.0'  # all ipv4 interfaces on default port
+# - '0.0.0.0:14008' # all ipv4 interfaces on port 14008
+# - ':14008'   # all ipv4 interfaces on port 14008
+# - '[::]:14008' # all ipv6 interfaces on port 14008
+# - '::'         # all ipv6 interfaces on default port
+# - '127.0.0.1:14008' # ipv4 localhost on port 14008
+# - '[::1]:14008' # ipv6 localhost on port 14008
+NoListen: false     # if true, this will override all listeners and disable listening for incoming connections
+
+RpcUser: Daniel
+RpcPassword: HjWp0fbNrbOFZ2S8RvddnW6CK8g=
+RpcMaxClients: 10
+NoRpc: false      #if true, will disable rpc server
+
+# Add whitelisted IP networks and IPs. Connected peers whose IP matches a whitelist will not have their ban score increased.
+WhiteList: ['172.28.1.111', '::1','fe80::1','172.28.1.0/24','fd00::/16']
+BlackList: ['10.0.0.1', '::1','fe80::1','192.168.0.0/24','fd00::/16']
+
+NoDnsSeed: false  # if false, enable DNS seeding for peers
+
+LocalIp: '192.168.0.125'   # if disable NAT, LocalIP will be used to test in LAN
+#EnableNAT: true  # if true, will enable upnp
+MiningAddress: yWewOjcZWu8CEhP9GsM+vWZPG55/n7pzpwzqu0Ahdgk=
