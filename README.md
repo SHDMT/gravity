@@ -19,6 +19,6 @@ Gravity is committed to building an ecosystem of global trading, with the aim of
     5.  2019.4Q Cross-Chain
 
 
-for private DAG platform setup guild, please refer to the following link 
+for private DAG platform setup guide, please refer to the following link 
 
 https://github.com/SHDMT/gravity/wiki
